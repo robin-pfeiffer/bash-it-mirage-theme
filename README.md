@@ -1,4 +1,4 @@
-# Mirage Bash-it Theme
+# Bash-it Mirage Theme
 
 ## Features
 
