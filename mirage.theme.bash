@@ -50,7 +50,7 @@ ___mirage_prompt_sub_venv_python() {
 
 ___mirage_prompt_venv() {
     _LINE=""
-    [ "${THEME_SHOW_VENV}" != "true" ] && return
+    [ "${THEME_SHOW_VENV}" != true ] && return
     for seg in ${___MIRAGE_VENV}; do
         info="$(___mirage_prompt_sub_venv_"${seg}")"
 		[ -n "${info}" ] && _____mirage_parse "${info}"
@@ -61,7 +61,7 @@ ___mirage_prompt_venv() {
 }
 
 ___mirage_prompt_scm() {
-    [ "${THEME_SHOW_SCM}" != "true" ] && return
+    [ "${THEME_SHOW_SCM}" != true ] && return
     info="$(scm_prompt_info)"
     printf "%s" "${info}"
 }
@@ -72,14 +72,14 @@ ___mirage_prompt_user_info() {
     # this session and is still valid)
     # activate: sudo su
     # reset: sudo -k
-    if [ "${THEME_SHOW_SUDO}" == "true" ]; then
+    if [ "${THEME_SHOW_SUDO}" == true ]; then
         if sudo -vn 1> /dev/null 2>&1; then
             color=$bold_red
         fi
     fi
 
     info="${color}\u${reset}"
-    printf "%s|%s|%s" "${info}"
+    printf "%s" "${info}"
 }
 
 ___mirage_prompt_host_info() {
@@ -94,7 +94,7 @@ ___mirage_prompt_dir() {
 
 ___mirage_prompt_exitcode() {
     color=$bold_green
-    if [ "${THEME_SHOW_EXITCODE}" == "true" ]; then
+    if [ "${THEME_SHOW_EXITCODE}" == true ]; then
         if [ "$exitcode" -ne 0 ]; then
             color=$bold_red
         fi
@@ -127,12 +127,12 @@ _mirage_completion() {
     segments="exitcode sudo scm venv"
     case "${_action}" in
         show | hide)
-            COMPREPLY=($(compgen -W "${segments}" -- "${cur}"))
+            mapfile -t COMPREPLY <<< "$(compgen -W "${segments}" -- "${cur}")"
             return 0
             ;;
     esac
 
-    COMPREPLY=($(compgen -W "${actions}" -- "${cur}"))
+    mapfile -t COMPREPLY <<< "$(compgen -W "${actions}" -- "${cur}")"
     return 0
 }
 
@@ -174,10 +174,10 @@ export GIT_THEME_PROMPT_CLEAN=" ${bold_green}✓${reset}"
 export GIT_THEME_PROMPT_PREFIX="${bold_blue}git:(${reset}"
 export GIT_THEME_PROMPT_SUFFIX="${bold_blue})${reset}"
 
-THEME_SHOW_SUDO=${THEME_SHOW_SUDO:-"true"}
-THEME_SHOW_EXITCODE=${THEME_SHOW_EXITCODE:-"true"}
-THEME_SHOW_SCM=${THEME_SHOW_SCM:-"true"}
-THEME_SHOW_VENV=${THEME_SHOW_VENV:-"true"}
+THEME_SHOW_SUDO=${THEME_SHOW_SUDO:-true}
+THEME_SHOW_EXITCODE=${THEME_SHOW_EXITCODE:-true}
+THEME_SHOW_SCM=${THEME_SHOW_SCM:-true}
+THEME_SHOW_VENV=${THEME_SHOW_VENV:-true}
 
 ___MIRAGE_VENV=${___MIRAGE_VENV:-"python"}
 
