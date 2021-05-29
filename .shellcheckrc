@@ -1,0 +1,2 @@
+# Disable for used color values from Bash-it
+disable=SC2154
