@@ -12,7 +12,7 @@ This assumes that you have Bash-it already installed and set up. If you have not
 git clone git@github.com:robin-pfeiffer/bash-it-mirage-theme.git
 cd bash-it-mirage-theme
 ./install.sh
-bash-it reload
+bash-it restart
 ```
 
 ## Development
