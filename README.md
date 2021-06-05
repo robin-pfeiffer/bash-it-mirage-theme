@@ -9,7 +9,7 @@
 
 ## Installation
 
-This assumes that you have Bash-it already installed and set up. If you have not done so, then follow the instructions on [their page](https://github.com/Bash-it/bash-it#installation)
+This assumes that you have Bash-it already installed and set up. If you have not done so, then follow the instructions on [their page](https://github.com/Bash-it/bash-it#installation).
 
 ```sh
 git clone git@github.com:robin-pfeiffer/bash-it-mirage-theme.git
