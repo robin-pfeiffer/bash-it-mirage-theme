@@ -22,7 +22,7 @@ bash-it restart
 
 Various features of Mirage can be turned on/off with `mirage show` and `mirage hide`. Options are `mirage show sudo|exitcode|scm|venv` and `mirage hide sudo|exitcode|scm|venv`.
 
-### Persistent settings
+#### Persistent settings
 
 Export variables from the Mirage theme to your `.bashrc` or `.bash_profile` file(s). Below are the variables that can be altered.
 
