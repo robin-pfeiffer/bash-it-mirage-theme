@@ -1,5 +1,7 @@
 # Bash-it Mirage Theme
 
+![Preview of Bash-it Mirage theme](./doc/img/bash-it-mirage-preview.svg "Preview")
+
 ## Features
 
 - Non-null exitcode visualization
