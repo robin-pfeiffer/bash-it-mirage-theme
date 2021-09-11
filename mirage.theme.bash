@@ -2,48 +2,24 @@
 
 # Mirage for Bash-it
 # by Robin Pfeiffer
-#
-# Based on Brainy Bash by MunifTanjim
 
-# Segment parsing
+build_segment() {
+    local segment
 
-_____mirage_parse() {
-    # printf "%s" "${info}"
-    # OR
-    # printf "%s|%s|%s" "${info}" "${box_color}" "box_name:[|]"
-	ifs_old="${IFS}"
-	IFS="|"
-	read -r -a args <<< "$@"
-	IFS="${ifs_old}"
-    # Print box start if specified.
-	if [ -n "${args[2]}" ]; then
-		_LINE+="${args[1]}${args[2]}${reset}"
-	fi
-    # Print info
-	_LINE+="${args[0]}"
-    # Print box end 
-	if [ -n "${args[3]}" ]; then
-		_LINE+="${args[1]}${args[3]}${reset}"
-	fi
-	_LINE+=" "
+    [ -n "$1" ] && segment="$1 " || segment=""
+
+    echo -n "$segment"
 }
 
-____mirage() {
-    _LINE=""
-
-	for seg in ${___MIRAGE}; do
-		info="$(___mirage_prompt_"${seg}")"
-		[ -n "${info}" ] && _____mirage_parse "${info}"
-	done
-
-	printf "%s" "${_LINE}"
+___mirage_prompt_reset() {
+    echo -n "$reset"
 }
 
 # Subsegments
 
 ___mirage_prompt_sub_venv_python() {
     info="$(virtualenv_prompt)"
-    printf "%s" "${info}"
+    build_segment "${info}"
 }
 
 # Segments
@@ -53,17 +29,17 @@ ___mirage_prompt_venv() {
     [ "${THEME_SHOW_VENV}" != true ] && return
     for seg in ${___MIRAGE_VENV}; do
         info="$(___mirage_prompt_sub_venv_"${seg}")"
-		[ -n "${info}" ] && _____mirage_parse "${info}"
+		[ -n "${info}" ] && _LINE+="${info}"
     done
     [ -z "${_LINE}" ] && return
     
-    printf "%s|%s|%s" "${_LINE::${#_LINE}-1}" "${bold_white}" "venv:(|)"
+    build_segment "${bold_white}venv:($reset${_LINE::${#_LINE}-1}$bold_white)$reset"
 }
 
 ___mirage_prompt_scm() {
     [ "${THEME_SHOW_SCM}" != true ] && return
     info="$(scm_prompt_info)"
-    printf "%s" "${info}"
+    build_segment "${info}"
 }
 
 ___mirage_prompt_user_info() {
@@ -79,17 +55,17 @@ ___mirage_prompt_user_info() {
     fi
 
     info="${color}\u${reset}"
-    printf "%s" "${info}"
+    build_segment "${info}"
 }
 
 ___mirage_prompt_host_info() {
     info="on $bold_purple\h$reset"
-    printf "%s" "${info}"
+    build_segment "${info}"
 }
 
 ___mirage_prompt_dir() {
     info="in ${bold_cyan}\W${reset}"
-    printf "%s" "${info}"
+    build_segment "${info}"
 }
 
 ___mirage_prompt_exitcode() {
@@ -101,7 +77,7 @@ ___mirage_prompt_exitcode() {
     fi
 
     info="${color}❯${reset}"
-    printf "%s" "${info}"
+    build_segment "${info}"
 }
 
 # Variables
@@ -134,8 +110,18 @@ ___MIRAGE=${___MIRAGE:-"exitcode user_info host_info dir scm venv"}
 
 # Prompt
 
+___mirage() {
+    ___mirage_prompt_reset
+
+    for seg in ${___MIRAGE}; do
+        ___mirage_prompt_$seg
+    done
+
+    ___mirage_prompt_reset
+}
+
 __mirage_ps1() {
-    printf "%s" "$(____mirage)"
+    ___mirage
 }
 
 _mirage_prompt() {
