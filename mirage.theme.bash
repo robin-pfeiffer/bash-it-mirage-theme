@@ -104,59 +104,6 @@ ___mirage_prompt_exitcode() {
     printf "%s" "${info}"
 }
 
-# CLI
-
-__mirage_show() {
-	typeset _seg=${1:-}
-	shift
-	export "THEME_SHOW_${_seg}"=true
-}
-
-__mirage_hide() {
-	typeset _seg=${1:-}
-	shift
-	export "THEME_SHOW_${_seg}"=false
-}
-
-_mirage_completion() {
-    local cur _action actions segments
-    COMPREPLY=()
-    cur="${COMP_WORDS[COMP_CWORD]}"
-    _action="${COMP_WORDS[1]}"
-    actions="show hide"
-    segments="exitcode sudo scm venv"
-    case "${_action}" in
-        show | hide)
-            mapfile -t COMPREPLY <<< "$(compgen -W "${segments}" -- "${cur}")"
-            return 0
-            ;;
-    esac
-
-    mapfile -t COMPREPLY <<< "$(compgen -W "${actions}" -- "${cur}")"
-    return 0
-}
-
-mirage() {
-    typeset action=${1:-}
-    shift
-    typeset segs=${*:-}
-    typeset func
-    case $action in
-        show)
-            func=__mirage_show
-            ;;
-        hide)
-            func=__mirage_hide
-            ;;
-    esac
-    for seg in ${segs}; do
-        seg=$(printf "%s" "${seg}" | tr '[:lower:]' '[:upper:]')
-        $func "${seg}"
-    done
-}
-
-complete -F _mirage_completion mirage
-
 # Variables
 
 reset="${reset_color}${normal}"
