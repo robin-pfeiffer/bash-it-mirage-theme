@@ -174,7 +174,7 @@ export GIT_THEME_PROMPT_CLEAN=" ${bold_green}✓${reset}"
 export GIT_THEME_PROMPT_PREFIX="${bold_blue}git:(${reset}"
 export GIT_THEME_PROMPT_SUFFIX="${bold_blue})${reset}"
 
-export SCM_GIT_SHOW_MINIMAL_INFO=${SCM_GIT_SHOW_MINIMAL_INFO:-true}
+export SCM_GIT_SHOW_MINIMAL_INFO=true
 
 THEME_SHOW_SUDO=${THEME_SHOW_SUDO:-true}
 THEME_SHOW_EXITCODE=${THEME_SHOW_EXITCODE:-true}
