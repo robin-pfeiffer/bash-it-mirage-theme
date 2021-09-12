@@ -59,7 +59,7 @@ ___mirage_prompt_user_info() {
 }
 
 ___mirage_prompt_host_info() {
-    info="on $bold_purple\h$reset"
+    info="at $bold_purple\h$reset"
     build_segment "${info}"
 }
 
