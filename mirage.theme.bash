@@ -87,15 +87,11 @@ reset="${reset_color}${normal}"
 export VIRTUALENV_THEME_PROMPT_PREFIX=""
 export VIRTUALENV_THEME_PROMPT_SUFFIX=""
 
+# Default to git as scm
 export SCM_THEME_PROMPT_DIRTY=" ${bold_yellow}±${reset}"
 export SCM_THEME_PROMPT_CLEAN=" ${bold_green}✓${reset}"
-export SCM_THEME_PROMPT_PREFIX="${bold_blue}scm:(${reset}"
+export SCM_THEME_PROMPT_PREFIX="${bold_blue}git:(${reset}"
 export SCM_THEME_PROMPT_SUFFIX="${bold_blue})${reset}"
-
-export GIT_THEME_PROMPT_DIRTY=" ${bold_yellow}±${reset}"
-export GIT_THEME_PROMPT_CLEAN=" ${bold_green}✓${reset}"
-export GIT_THEME_PROMPT_PREFIX="${bold_blue}git:(${reset}"
-export GIT_THEME_PROMPT_SUFFIX="${bold_blue})${reset}"
 
 export SCM_GIT_SHOW_MINIMAL_INFO=true
 
