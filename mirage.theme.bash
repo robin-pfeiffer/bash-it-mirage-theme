@@ -15,77 +15,54 @@ ___mirage_prompt_reset() {
     echo -n "$reset"
 }
 
-# Subsegments
-
-___mirage_prompt_sub_venv_python() {
-    info="$(virtualenv_prompt)"
-    build_segment "${info}"
-}
-
 # Segments
 
 ___mirage_prompt_venv() {
-    _LINE=""
-    [ "${THEME_SHOW_VENV}" != true ] && return
-    for seg in ${___MIRAGE_VENV}; do
-        info="$(___mirage_prompt_sub_venv_"${seg}")"
-		[ -n "${info}" ] && _LINE+="${info}"
-    done
-    [ -z "${_LINE}" ] && return
-    
-    build_segment "${bold_white}venv:($reset${_LINE::${#_LINE}-1}$bold_white)$reset"
+    ("$THEME_SHOW_VENV") &&
+        [[ -n "$VIRTUAL_ENV" ]] &&
+        build_segment "${bold_white}venv:(${reset}"$(basename $VIRTUAL_ENV)"${bold_white})$reset"
 }
 
 ___mirage_prompt_scm() {
-    [ "${THEME_SHOW_SCM}" != true ] && return
-    info="$(scm_prompt_info)"
-    build_segment "${info}"
+    ("$THEME_SHOW_SCM") &&
+        build_segment "$(scm_prompt_info)"
 }
 
 ___mirage_prompt_user_info() {
-    color=$bold_blue
+    local color=$bold_blue
+
     # Shows if sudo has a timestamp file (sudo has been used within 
     # this session and is still valid)
     # activate: sudo su
     # reset: sudo -k
-    if [ "${THEME_SHOW_SUDO}" == true ]; then
-        if sudo -vn 1> /dev/null 2>&1; then
-            color=$bold_red
-        fi
-    fi
+    ("$THEME_SHOW_SUDO") &&
+        sudo -vn 1> /dev/null 2>&1 &&
+        color=$bold_red
 
-    info="${color}\u${reset}"
-    build_segment "${info}"
+    build_segment "${color}\u${reset}"
 }
 
 ___mirage_prompt_host_info() {
-    info="at $bold_purple\h$reset"
-    build_segment "${info}"
+    build_segment "at ${bold_purple}\h${reset}"
 }
 
 ___mirage_prompt_dir() {
-    info="in ${bold_cyan}\W${reset}"
-    build_segment "${info}"
+    build_segment "in ${bold_cyan}\W${reset}"
 }
 
 ___mirage_prompt_exitcode() {
-    color=$bold_green
-    if [ "${THEME_SHOW_EXITCODE}" == true ]; then
-        if [ "$exitcode" -ne 0 ]; then
-            color=$bold_red
-        fi
-    fi
+    local color=$bold_green
 
-    info="${color}❯${reset}"
-    build_segment "${info}"
+    ("$THEME_SHOW_EXITCODE") && 
+        [[ "$exitcode" -ne 0 ]] && 
+        color=$bold_red
+
+    build_segment "${color}❯${reset}"
 }
 
 # Variables
 
 reset="${reset_color}${normal}"
-
-export VIRTUALENV_THEME_PROMPT_PREFIX=""
-export VIRTUALENV_THEME_PROMPT_SUFFIX=""
 
 # Default to git as scm
 export SCM_THEME_PROMPT_DIRTY=" ${bold_yellow}±${reset}"
