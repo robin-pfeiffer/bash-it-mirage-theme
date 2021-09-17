@@ -77,8 +77,6 @@ THEME_SHOW_EXITCODE=${THEME_SHOW_EXITCODE:-true}
 THEME_SHOW_SCM=${THEME_SHOW_SCM:-true}
 THEME_SHOW_VENV=${THEME_SHOW_VENV:-true}
 
-___MIRAGE_VENV=${___MIRAGE_VENV:-"python"}
-
 ___MIRAGE=${___MIRAGE:-"exitcode user_info host_info dir scm venv"}
 
 # Prompt
