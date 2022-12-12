@@ -53,3 +53,7 @@ brew install shellcheck
 ```
 
 After making changes to `mirage.theme.bash` run `shellcheck mirage.theme.bash` and fix any errors or warnings before committing.
+
+## License
+
+Distributed under MIT License. See [LICENSE](./LICENSE) for more information.
