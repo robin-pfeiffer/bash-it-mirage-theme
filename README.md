@@ -6,7 +6,7 @@
 
 - Non-null exitcode visualization
 - Show presence of sudo timestamp file
-- Show current active virtual environment
+- Show current active Python virtual environment
 - SCM/Git support
 
 ## Installation
@@ -29,6 +29,16 @@ export THEME_SHOW_SUDO=true
 export THEME_SHOW_EXITCODE=true
 export THEME_SHOW_SCM=true
 export THEME_SHOW_VENV=true
+```
+
+## Updating
+
+To update the Mirage theme you only need to pull the remote changes of this repository and reload Bash-it.
+
+```sh
+cd bash-it-mirage-theme
+git pull --ff-only
+bash-it reload
 ```
 
 ## Development
