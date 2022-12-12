@@ -20,7 +20,7 @@ ___mirage_prompt_reset() {
 ___mirage_prompt_venv() {
     ("$THEME_SHOW_VENV") &&
         [[ -n "$VIRTUAL_ENV" ]] &&
-        build_segment "${white}venv:(${reset}"$(basename $VIRTUAL_ENV)"${white})$reset"
+        build_segment "${white}venv:(${reset}$(basename "$VIRTUAL_ENV")${white})$reset"
 }
 
 ___mirage_prompt_scm() {
@@ -85,7 +85,7 @@ ___mirage() {
     ___mirage_prompt_reset
 
     for seg in ${___MIRAGE}; do
-        ___mirage_prompt_$seg
+        ___mirage_prompt_"$seg"
     done
 
     ___mirage_prompt_reset
