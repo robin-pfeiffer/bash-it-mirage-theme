@@ -64,11 +64,12 @@ ___mirage_prompt_exitcode() {
 
 reset="${reset_color}${normal}"
 
-# Default to git as scm
+# Version control
+
 export SCM_THEME_PROMPT_DIRTY=" ${yellow}±${reset}"
 export SCM_THEME_PROMPT_CLEAN=" ${green}✓${reset}"
-export SCM_THEME_PROMPT_PREFIX="${blue}git:(${reset}"
-export SCM_THEME_PROMPT_SUFFIX="${blue})${reset}"
+export SCM_THEME_PROMPT_PREFIX="on ${blue}"
+export SCM_THEME_PROMPT_SUFFIX="${reset}"
 
 export SCM_GIT_SHOW_MINIMAL_INFO=true
 

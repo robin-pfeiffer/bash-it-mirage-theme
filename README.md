@@ -7,7 +7,7 @@
 - Non-null exitcode visualization
 - Show presence of sudo timestamp file
 - Show current active Python virtual environment
-- SCM/Git support
+- Show version control changes
 
 ## Installation
 
